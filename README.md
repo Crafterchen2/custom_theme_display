@@ -4,6 +4,11 @@ This sample Flutter app showcases Material 3 features in the Flutter Material li
 
 This app also includes new M3 components such as IconButtons, Chips, TextFields, Switches, Checkboxes, Radio buttons and ProgressIndicators.
 
+# Differences in this fork
+
+The ninth color is now set to custom and if selected, applies a completely custom theme definable using the methods "getCustomLightTheme()" and "getCustomDarkTheme()" respectively.
+The switches "Brightness" and "Material 3/2" can be supported by the custom themes.
+
 # Preview
 
 <img width="400" alt="Screen Shot 2022-08-12 at 12 00 28 PM" src="https://user-images.githubusercontent.com/36861262/184426137-47b550e1-5c6e-4bb7-b647-b1741f96d42b.png"><img width="400" alt="Screen Shot 2022-08-12 at 12 00 38 PM" src="https://user-images.githubusercontent.com/36861262/184426154-063a39e8-24bd-40be-90cd-984bf81c0fdf.png">

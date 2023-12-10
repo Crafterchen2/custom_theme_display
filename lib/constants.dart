@@ -29,7 +29,7 @@ enum ColorSeed {
   yellow('Yellow', Colors.yellow),
   orange('Orange', Colors.orange),
   deepOrange('Deep Orange', Colors.deepOrange),
-  pink('Pink', Colors.pink);
+  custom('Custom', Color(0xff4d4d4d));
 
   const ColorSeed(this.label, this.color);
   final String label;
