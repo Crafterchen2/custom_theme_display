@@ -40,10 +40,6 @@ class _AppState extends State<App> {
     }
   }
 
-  bool getIsMat3() {
-    return useMaterial3;
-  }
-
   void handleBrightnessChange(bool useLightMode) {
     setState(() {
       themeMode = useLightMode ? ThemeMode.light : ThemeMode.dark;
