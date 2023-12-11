@@ -950,6 +950,18 @@ class _CheckboxesState extends State<Checkboxes> {
             value: true,
             onChanged: null,
           ),
+          const CheckboxListTile(
+            tristate: true,
+            title: Text('Option 5'),
+            value: null,
+            onChanged: null,
+          ),
+          const CheckboxListTile(
+            tristate: true,
+            title: Text('Option 6'),
+            value: false,
+            onChanged: null,
+          ),
         ],
       ),
     );
@@ -965,7 +977,9 @@ class Radios extends StatefulWidget {
   State<Radios> createState() => _RadiosState();
 }
 
-enum Options { option1, option2, option3 }
+enum Options { option1, option2 }
+
+enum Options1 { option1, option2 }
 
 class _RadiosState extends State<Radios> {
   Options? _selectedOption = Options.option1;
@@ -997,10 +1011,16 @@ class _RadiosState extends State<Radios> {
               });
             },
           ),
-          RadioListTile<Options>(
+          RadioListTile<Options1>(
             title: const Text('Option 3'),
-            value: Options.option3,
-            groupValue: _selectedOption,
+            value: Options1.option1,
+            groupValue: Options1.option1,
+            onChanged: null,
+          ),
+          RadioListTile<Options1>(
+            title: const Text('Option 4'),
+            value: Options1.option2,
+            groupValue: Options1.option1,
             onChanged: null,
           ),
         ],
