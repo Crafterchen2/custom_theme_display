@@ -828,8 +828,9 @@ class Switches extends StatelessWidget {
       tooltipMessage: 'Use SwitchListTile or Switch',
       child: Column(
         children: <Widget>[
-          SwitchRow(isEnabled: true),
-          SwitchRow(isEnabled: false),
+          SwitchRow(isEnabled: true, initialSetting: false,),
+          SwitchRow(isEnabled: false, initialSetting: false,),
+          SwitchRow(isEnabled: false, initialSetting: true,),
         ],
       ),
     );
@@ -837,9 +838,13 @@ class Switches extends StatelessWidget {
 }
 
 class SwitchRow extends StatefulWidget {
-  const SwitchRow({super.key, required this.isEnabled});
+  const SwitchRow({
+    super.key,
+    required this.isEnabled,
+    required this.initialSetting,
+  });
 
-  final bool isEnabled;
+  final bool isEnabled, initialSetting;
 
   @override
   State<SwitchRow> createState() => _SwitchRowState();
@@ -864,7 +869,7 @@ class _SwitchRowState extends State<SwitchRow> {
       children: <Widget>[
         // TODO: use SwitchListTile when thumbIcon is available https://github.com/flutter/flutter/issues/118616
         Switch(
-          value: value0,
+          value: value0 ^ widget.initialSetting,
           onChanged: widget.isEnabled
               ? (value) {
                   setState(() {
@@ -875,7 +880,7 @@ class _SwitchRowState extends State<SwitchRow> {
         ),
         Switch(
           thumbIcon: thumbIcon,
-          value: value1,
+          value: value1 ^ widget.initialSetting,
           onChanged: widget.isEnabled
               ? (value) {
                   setState(() {
