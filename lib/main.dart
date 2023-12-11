@@ -127,6 +127,34 @@ class _AppState extends State<App> {
       sliderTheme: SliderThemeData(
         activeTrackColor: customLightScheme.secondary,
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return customLightScheme.onSurface.withOpacity(0.12);
+            return customLightScheme.secondary;
+          }),
+          foregroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return customLightScheme.onSurface.withOpacity(0.38);
+            if (states.contains(MaterialState.hovered)) return customLightScheme.onSecondary;
+            return customLightScheme.primary;
+          }),
+          surfaceTintColor: MaterialStateProperty.resolveWith((states) {
+            return Colors.transparent;
+          }),
+          elevation: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return 0;
+            if (states.contains(MaterialState.pressed)) return 2;
+            if (states.contains(MaterialState.hovered)) return 10;
+            return 5;
+          }),
+        ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        elevation: 5,
+        backgroundColor: customLightScheme.primary,
+        focusElevation: 10,
+        foregroundColor: customLightScheme.onPrimary,
+      ),
       useMaterial3: useMaterial3,
     );
   }
@@ -135,7 +163,35 @@ class _AppState extends State<App> {
     return ThemeData(
       colorScheme: customDarkScheme,
       sliderTheme: SliderThemeData(
-        activeTrackColor: customLightScheme.secondary,
+        activeTrackColor: customDarkScheme.secondary,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return customDarkScheme.onSurface.withOpacity(0.12);
+            return customDarkScheme.secondary;
+          }),
+          foregroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return customDarkScheme.onSurface.withOpacity(0.38);
+            if (states.contains(MaterialState.hovered)) return customDarkScheme.onSecondary;
+            return customDarkScheme.primary;
+          }),
+          surfaceTintColor: MaterialStateProperty.resolveWith((states) {
+            return Colors.transparent;
+          }),
+          elevation: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return 0;
+            if (states.contains(MaterialState.pressed)) return 2;
+            if (states.contains(MaterialState.hovered)) return 10;
+            return 5;
+          }),
+        ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        elevation: 5,
+        backgroundColor: customDarkScheme.primary,
+        focusElevation: 10,
+        foregroundColor: customDarkScheme.onPrimary,
       ),
       useMaterial3: useMaterial3,
     );
