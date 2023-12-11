@@ -155,6 +155,11 @@ class _AppState extends State<App> {
         focusElevation: 10,
         foregroundColor: customLightScheme.onPrimary,
       ),
+      scrollbarTheme: ScrollbarThemeData(
+        thumbVisibility: MaterialStateProperty.resolveWith((states) {
+          return true;
+        }),
+      ),
       useMaterial3: useMaterial3,
     );
   }
@@ -192,6 +197,11 @@ class _AppState extends State<App> {
         backgroundColor: customDarkScheme.primary,
         focusElevation: 10,
         foregroundColor: customDarkScheme.onPrimary,
+      ),
+      scrollbarTheme: ScrollbarThemeData(
+        thumbVisibility: MaterialStateProperty.resolveWith((states) {
+          return true;
+        }),
       ),
       useMaterial3: useMaterial3,
     );
