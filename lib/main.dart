@@ -151,6 +151,12 @@ class _AppState extends State<App> {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           shape: MaterialStateProperty.resolveWith((states) => buttonShape),
+          side: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return BorderSide(width: 1, color: customLightScheme.onSurface.withOpacity(backgroundDisabledOpacity));
+            if (states.contains(MaterialState.pressed)) return BorderSide(width: 1, color: customLightScheme.primary);
+            if (states.contains(MaterialState.hovered)) return BorderSide(width: 4, color: customLightScheme.primary);
+            return BorderSide(width: 2, color: customLightScheme.primary);
+          }),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
