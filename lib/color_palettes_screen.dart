@@ -4,7 +4,11 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:material_3_demo/main.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'constants.dart';
 
 const Widget divider = SizedBox(height: 10);
 
@@ -14,19 +18,34 @@ const Widget divider = SizedBox(height: 10);
 const double narrowScreenWidthThreshold = 400;
 
 class ColorPalettesScreen extends StatelessWidget {
-  const ColorPalettesScreen({super.key});
+  final ColorSeed colorSelected;
+
+  const ColorPalettesScreen({
+    super.key,
+    required this.colorSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
-    ThemeData lightTheme = ThemeData(
-      colorSchemeSeed: selectedColor,
-      brightness: Brightness.light,
-    );
-    ThemeData darkTheme = ThemeData(
-      colorSchemeSeed: selectedColor,
-      brightness: Brightness.dark,
-    );
+    ThemeData lightTheme = colorSelected == ColorSeed.custom
+        ? ThemeData(
+            colorScheme: customLightScheme,
+            brightness: Brightness.light,
+          )
+        : ThemeData(
+            colorSchemeSeed: selectedColor,
+            brightness: Brightness.light,
+          );
+    ThemeData darkTheme = colorSelected == ColorSeed.custom
+        ? ThemeData(
+            colorScheme: customDarkScheme,
+            brightness: Brightness.dark,
+          )
+        : ThemeData(
+            colorSchemeSeed: selectedColor,
+            brightness: Brightness.dark,
+          );
 
     Widget schemeLabel(String brightness) {
       return Padding(
@@ -69,7 +88,7 @@ class ColorPalettesScreen extends StatelessWidget {
                     }
                   },
               ),
-              const TextSpan(text: ' package.'),
+              const TextSpan(text: ' package. \n Press the buttons to copy.'),
             ],
           ),
         );
@@ -143,10 +162,7 @@ class ColorSchemeView extends StatelessWidget {
             color: colorScheme.primary,
             onColor: colorScheme.onPrimary,
           ),
-          ColorChip(
-              label: 'onPrimary',
-              color: colorScheme.onPrimary,
-              onColor: colorScheme.primary),
+          ColorChip(label: 'onPrimary', color: colorScheme.onPrimary, onColor: colorScheme.primary),
           ColorChip(
             label: 'primaryContainer',
             color: colorScheme.primaryContainer,
@@ -175,85 +191,40 @@ class ColorSchemeView extends StatelessWidget {
             color: colorScheme.secondaryContainer,
             onColor: colorScheme.onSecondaryContainer,
           ),
-          ColorChip(
-              label: 'onSecondaryContainer',
-              color: colorScheme.onSecondaryContainer,
-              onColor: colorScheme.secondaryContainer),
+          ColorChip(label: 'onSecondaryContainer', color: colorScheme.onSecondaryContainer, onColor: colorScheme.secondaryContainer),
         ]),
         divider,
         ColorGroup(
           children: [
-            ColorChip(
-                label: 'tertiary',
-                color: colorScheme.tertiary,
-                onColor: colorScheme.onTertiary),
-            ColorChip(
-                label: 'onTertiary',
-                color: colorScheme.onTertiary,
-                onColor: colorScheme.tertiary),
-            ColorChip(
-                label: 'tertiaryContainer',
-                color: colorScheme.tertiaryContainer,
-                onColor: colorScheme.onTertiaryContainer),
-            ColorChip(
-                label: 'onTertiaryContainer',
-                color: colorScheme.onTertiaryContainer,
-                onColor: colorScheme.tertiaryContainer),
+            ColorChip(label: 'tertiary', color: colorScheme.tertiary, onColor: colorScheme.onTertiary),
+            ColorChip(label: 'onTertiary', color: colorScheme.onTertiary, onColor: colorScheme.tertiary),
+            ColorChip(label: 'tertiaryContainer', color: colorScheme.tertiaryContainer, onColor: colorScheme.onTertiaryContainer),
+            ColorChip(label: 'onTertiaryContainer', color: colorScheme.onTertiaryContainer, onColor: colorScheme.tertiaryContainer),
           ],
         ),
         divider,
         ColorGroup(
           children: [
-            ColorChip(
-                label: 'error',
-                color: colorScheme.error,
-                onColor: colorScheme.onError),
-            ColorChip(
-                label: 'onError',
-                color: colorScheme.onError,
-                onColor: colorScheme.error),
-            ColorChip(
-                label: 'errorContainer',
-                color: colorScheme.errorContainer,
-                onColor: colorScheme.onErrorContainer),
-            ColorChip(
-                label: 'onErrorContainer',
-                color: colorScheme.onErrorContainer,
-                onColor: colorScheme.errorContainer),
+            ColorChip(label: 'error', color: colorScheme.error, onColor: colorScheme.onError),
+            ColorChip(label: 'onError', color: colorScheme.onError, onColor: colorScheme.error),
+            ColorChip(label: 'errorContainer', color: colorScheme.errorContainer, onColor: colorScheme.onErrorContainer),
+            ColorChip(label: 'onErrorContainer', color: colorScheme.onErrorContainer, onColor: colorScheme.errorContainer),
           ],
         ),
         divider,
         ColorGroup(
           children: [
-            ColorChip(
-                label: 'background',
-                color: colorScheme.background,
-                onColor: colorScheme.onBackground),
-            ColorChip(
-                label: 'onBackground',
-                color: colorScheme.onBackground,
-                onColor: colorScheme.background),
+            ColorChip(label: 'background', color: colorScheme.background, onColor: colorScheme.onBackground),
+            ColorChip(label: 'onBackground', color: colorScheme.onBackground, onColor: colorScheme.background),
           ],
         ),
         divider,
         ColorGroup(
           children: [
-            ColorChip(
-                label: 'surface',
-                color: colorScheme.surface,
-                onColor: colorScheme.onSurface),
-            ColorChip(
-                label: 'onSurface',
-                color: colorScheme.onSurface,
-                onColor: colorScheme.surface),
-            ColorChip(
-                label: 'surfaceVariant',
-                color: colorScheme.surfaceVariant,
-                onColor: colorScheme.onSurfaceVariant),
-            ColorChip(
-                label: 'onSurfaceVariant',
-                color: colorScheme.onSurfaceVariant,
-                onColor: colorScheme.surfaceVariant),
+            ColorChip(label: 'surface', color: colorScheme.surface, onColor: colorScheme.onSurface),
+            ColorChip(label: 'onSurface', color: colorScheme.onSurface, onColor: colorScheme.surface),
+            ColorChip(label: 'surfaceVariant', color: colorScheme.surfaceVariant, onColor: colorScheme.onSurfaceVariant),
+            ColorChip(label: 'onSurfaceVariant', color: colorScheme.onSurfaceVariant, onColor: colorScheme.surfaceVariant),
           ],
         ),
         divider,
@@ -261,18 +232,9 @@ class ColorSchemeView extends StatelessWidget {
           children: [
             ColorChip(label: 'outline', color: colorScheme.outline),
             ColorChip(label: 'shadow', color: colorScheme.shadow),
-            ColorChip(
-                label: 'inverseSurface',
-                color: colorScheme.inverseSurface,
-                onColor: colorScheme.onInverseSurface),
-            ColorChip(
-                label: 'onInverseSurface',
-                color: colorScheme.onInverseSurface,
-                onColor: colorScheme.inverseSurface),
-            ColorChip(
-                label: 'inversePrimary',
-                color: colorScheme.inversePrimary,
-                onColor: colorScheme.primary),
+            ColorChip(label: 'inverseSurface', color: colorScheme.inverseSurface, onColor: colorScheme.onInverseSurface),
+            ColorChip(label: 'onInverseSurface', color: colorScheme.onInverseSurface, onColor: colorScheme.inverseSurface),
+            ColorChip(label: 'inversePrimary', color: colorScheme.inversePrimary, onColor: colorScheme.primary),
           ],
         ),
       ],
@@ -330,10 +292,65 @@ class ColorChip extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            Expanded(child: Text(label, style: TextStyle(color: labelColor))),
+            Expanded(
+              flex: 3,
+              child: Text(
+                label +
+                    ' (a: ' +
+                    color.alpha.toString() +
+                    '; r:' +
+                    color.red.toString() +
+                    '; g: ' +
+                    color.green.toString() +
+                    '; b: ' +
+                    color.blue.toString() +
+                    '; hex: 0x' +
+                    color.value.toRadixString(16) +
+                    ')',
+                style: TextStyle(color: labelColor),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: SegmentedButton<CopyOptions>(
+                style: ButtonStyle(
+                  side: MaterialStateProperty.resolveWith((states) => BorderSide(
+                    color: labelColor,
+                  )),
+                  foregroundColor: MaterialStateProperty.resolveWith((states) => labelColor),
+                ),
+                segments: const <ButtonSegment<CopyOptions>>[
+                  ButtonSegment<CopyOptions>(value: CopyOptions.a, label: Text('a')),
+                  ButtonSegment<CopyOptions>(value: CopyOptions.r, label: Text('r')),
+                  ButtonSegment<CopyOptions>(value: CopyOptions.g, label: Text('g')),
+                  ButtonSegment<CopyOptions>(value: CopyOptions.b, label: Text('b'),),
+                  ButtonSegment<CopyOptions>(value: CopyOptions.hex, label: Text('h')),
+                ],
+                selected: <CopyOptions>{},
+                emptySelectionAllowed: true,
+                onSelectionChanged: (newSelection) async {
+                  switch (newSelection.first) {
+                    case CopyOptions.a: await Clipboard.setData(ClipboardData(text: color.alpha.toString())); break;
+                    case CopyOptions.r: await Clipboard.setData(ClipboardData(text: color.red.toString())); break;
+                    case CopyOptions.g: await Clipboard.setData(ClipboardData(text: color.green.toString())); break;
+                    case CopyOptions.b: await Clipboard.setData(ClipboardData(text: color.blue.toString())); break;
+                    case CopyOptions.hex: await Clipboard.setData(ClipboardData(text: color.value.toRadixString(16))); break;
+                  }
+                },
+                multiSelectionEnabled: true,
+              ),
+            )
           ],
         ),
       ),
     );
   }
+}
+
+enum CopyOptions {
+  a,
+  r,
+  g,
+  b,
+  hex;
 }

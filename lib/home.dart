@@ -124,7 +124,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
         );
       case ScreenSelected.color:
-        return const ColorPalettesScreen();
+        return ColorPalettesScreen(
+          colorSelected: widget.colorSelected,
+        );
       case ScreenSelected.typography:
         return const TypographyScreen();
       case ScreenSelected.elevation:
