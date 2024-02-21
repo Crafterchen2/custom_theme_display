@@ -243,11 +243,11 @@ class _AppState extends State<App> {
 
 ColorScheme customLightScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xff0c2148),
+  primary: Color(0xFF092551), //Pionix primaryBlue
   onPrimary: Color(0xffffffff),
   primaryContainer: Color(0xffd9e2ff),
   onPrimaryContainer: Color(0xff000000),
-  secondary: Color(0xffffac02),
+  secondary: Color(0xffffac02), //Pionix primaryAmber
   onSecondary: Color(0xffffffff),
   secondaryContainer: Color(0xffffddb2),
   onSecondaryContainer: Color(0xff000000),
@@ -272,7 +272,7 @@ ColorScheme customLightScheme = ColorScheme(
   inverseSurface: Color(0xff303033),
   onInverseSurface: Color(0xffffffff),
   inversePrimary: Color(0xffd9e2ff),
-  surfaceTint: Color(0xff0c2148),
+  surfaceTint: Color(0xFF092551), //Pionix primaryBlue
 );
 
 ColorScheme customDarkScheme = ColorScheme(
