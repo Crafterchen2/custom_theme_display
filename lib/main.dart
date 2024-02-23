@@ -145,7 +145,7 @@ class _AppState extends State<App> {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
-        shape: MaterialStateProperty.resolveWith((states) => buttonShape),
+          shape: MaterialStateProperty.resolveWith((states) => buttonShape),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
