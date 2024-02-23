@@ -170,6 +170,14 @@ class _AppState extends State<App> {
         focusElevation: 10,
         foregroundColor: customLightScheme.onPrimary,
       ),
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.disabled)) return customLightScheme.onSurface.withOpacity(foregroundDisabledOpacity);
+          if (states.contains(MaterialState.selected)) return customLightScheme.onPrimary;
+          if (states.contains(MaterialState.hovered)) return customLightScheme.onSurfaceVariant;
+          return customLightScheme.primary;
+        })
+      ),
       scrollbarTheme: ScrollbarThemeData(
         thumbVisibility: MaterialStateProperty.resolveWith((states) {
           return true;
@@ -227,9 +235,17 @@ class _AppState extends State<App> {
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         elevation: 5,
-        backgroundColor: customLightScheme.primary,
+        backgroundColor: customDarkScheme.primary,
         focusElevation: 10,
-        foregroundColor: customLightScheme.onPrimary,
+        foregroundColor: customDarkScheme.onPrimary,
+      ),
+      switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) return customDarkScheme.onSurface.withOpacity(foregroundDisabledOpacity);
+            if (states.contains(MaterialState.selected)) return customDarkScheme.onPrimary;
+            if (states.contains(MaterialState.hovered)) return customDarkScheme.onSurfaceVariant;
+            return customDarkScheme.primary;
+          })
       ),
       scrollbarTheme: ScrollbarThemeData(
         thumbVisibility: MaterialStateProperty.resolveWith((states) {
