@@ -170,14 +170,12 @@ class _AppState extends State<App> {
         focusElevation: 10,
         foregroundColor: customLightScheme.onPrimary,
       ),
-      switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) return customLightScheme.onSurface.withOpacity(foregroundDisabledOpacity);
-          if (states.contains(MaterialState.selected)) return customLightScheme.onPrimary;
-          if (states.contains(MaterialState.hovered)) return customLightScheme.onSurfaceVariant;
-          return customLightScheme.primary;
-        })
-      ),
+      switchTheme: SwitchThemeData(thumbColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) return customLightScheme.onSurface.withOpacity(foregroundDisabledOpacity);
+        if (states.contains(MaterialState.selected)) return customLightScheme.onPrimary;
+        if (states.contains(MaterialState.hovered)) return customLightScheme.onSurfaceVariant;
+        return customLightScheme.primary;
+      })),
       scrollbarTheme: ScrollbarThemeData(
         thumbVisibility: MaterialStateProperty.resolveWith((states) {
           return true;
@@ -239,14 +237,12 @@ class _AppState extends State<App> {
         focusElevation: 10,
         foregroundColor: customDarkScheme.onPrimary,
       ),
-      switchTheme: SwitchThemeData(
-          thumbColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) return customDarkScheme.onSurface.withOpacity(foregroundDisabledOpacity);
-            if (states.contains(MaterialState.selected)) return customDarkScheme.onPrimary;
-            if (states.contains(MaterialState.hovered)) return customDarkScheme.onSurfaceVariant;
-            return customDarkScheme.primary;
-          })
-      ),
+      switchTheme: SwitchThemeData(thumbColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.disabled)) return customDarkScheme.onSurface.withOpacity(foregroundDisabledOpacity);
+        if (states.contains(MaterialState.selected)) return customDarkScheme.onPrimary;
+        if (states.contains(MaterialState.hovered)) return customDarkScheme.onSurfaceVariant;
+        return customDarkScheme.primary;
+      })),
       scrollbarTheme: ScrollbarThemeData(
         thumbVisibility: MaterialStateProperty.resolveWith((states) {
           return true;
@@ -393,7 +389,13 @@ class SimpleColorScheme {
   }
 }
 
-SimpleColorScheme schemeSrc = SimpleColorScheme(primarySeed: Color(0xFF092551), secondarySeed: Color(0xffffac02), tertiarySeed: Color(0xff00531f), whiteSeed: Color(0xffffffff), blackSeed: Color(0xff1a1a1a));
+SimpleColorScheme schemeSrc = SimpleColorScheme(
+  primarySeed: Color(0xFF092551),
+  secondarySeed: Color(0xffffac02),
+  tertiarySeed: Color(0xff00531f),
+  whiteSeed: Color(0xffffffff),
+  blackSeed: Color(0xff1a1a1a),
+);
 
 ColorScheme customLightScheme = schemeSrc.lightScheme;
 
