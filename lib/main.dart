@@ -257,41 +257,183 @@ class _AppState extends State<App> {
   }
 }
 
-ColorScheme customLightScheme = ColorScheme(
+class SimpleColorScheme {
+  final Color primarySeed;
+  final Color secondarySeed;
+  final Color tertiarySeed;
+  final Color whiteSeed;
+  final Color blackSeed;
+  final Color errorSeed;
+  final double lighterGreyLerp;
+  final double lightGreyLerp;
+  final double greyLerp;
+  final double darkGreyLerp;
+  final double onPrimaryLerp;
+  final double onSecondaryLerp;
+  final double onTertiaryLerp;
+  final double onErrorLerp;
+  final bool whiteForPrimaryLerp;
+  final bool whiteForSecondaryLerp;
+  final bool whiteForTertiaryLerp;
+  final bool whiteForErrorLerp;
+
+  late ColorScheme lightScheme;
+  late ColorScheme darkScheme;
+  late Color lighterGrey;
+  late Color lightGrey;
+  late Color grey;
+  late Color darkGrey;
+  late Color onPrimary;
+  late Color onSecondary;
+  late Color onTertiary;
+  late Color onError;
+
+  SimpleColorScheme({
+    required this.primarySeed,
+    required this.secondarySeed,
+    required this.tertiarySeed,
+    required this.whiteSeed,
+    required this.blackSeed,
+    this.errorSeed = const Color(0xffba1a1a),
+    this.lighterGreyLerp = 0.1,
+    this.lightGreyLerp = 0.25,
+    this.greyLerp = 0.5,
+    this.darkGreyLerp = 0.6,
+    this.onPrimaryLerp = 0.6,
+    this.onSecondaryLerp = 0.6,
+    this.onTertiaryLerp = 0.6,
+    this.onErrorLerp = 0.6,
+    this.whiteForPrimaryLerp = true,
+    this.whiteForSecondaryLerp = true,
+    this.whiteForTertiaryLerp = true,
+    this.whiteForErrorLerp = true,
+  }) {
+    lighterGrey = Color.lerp(whiteSeed, blackSeed, lighterGreyLerp)!;
+    lightGrey = Color.lerp(whiteSeed, blackSeed, lightGreyLerp)!;
+    grey = Color.lerp(whiteSeed, blackSeed, greyLerp)!;
+    darkGrey = Color.lerp(whiteSeed, blackSeed, darkGreyLerp)!;
+    onPrimary = Color.lerp(primarySeed, whiteForPrimaryLerp ? whiteSeed : blackSeed, onPrimaryLerp)!;
+    onSecondary = Color.lerp(secondarySeed, whiteForSecondaryLerp ? whiteSeed : blackSeed, onSecondaryLerp)!;
+    onTertiary = Color.lerp(tertiarySeed, whiteForTertiaryLerp ? whiteSeed : blackSeed, onTertiaryLerp)!;
+    onError = Color.lerp(errorSeed, whiteForErrorLerp ? whiteSeed : blackSeed, onErrorLerp)!;
+    lightScheme = makeLightScheme();
+    darkScheme = makeDarkScheme();
+  }
+
+  ColorScheme makeLightScheme() {
+    return ColorScheme(
+      brightness: Brightness.light,
+      primary: primarySeed,
+      onPrimary: whiteSeed,
+      primaryContainer: onPrimary,
+      onPrimaryContainer: blackSeed,
+      secondary: secondarySeed,
+      onSecondary: whiteSeed,
+      secondaryContainer: onSecondary,
+      onSecondaryContainer: blackSeed,
+      tertiary: tertiarySeed,
+      onTertiary: whiteSeed,
+      tertiaryContainer: onTertiary,
+      onTertiaryContainer: blackSeed,
+      error: errorSeed,
+      onError: whiteSeed,
+      errorContainer: onError,
+      onErrorContainer: blackSeed,
+      background: whiteSeed,
+      onBackground: blackSeed,
+      surface: whiteSeed,
+      onSurface: blackSeed,
+      surfaceVariant: lighterGrey,
+      onSurfaceVariant: blackSeed,
+      outline: grey,
+      outlineVariant: lightGrey,
+      shadow: blackSeed,
+      scrim: blackSeed,
+      inverseSurface: darkGrey,
+      onInverseSurface: whiteSeed,
+      inversePrimary: onPrimary,
+      surfaceTint: primarySeed,
+    );
+  }
+
+  ColorScheme makeDarkScheme() {
+    return ColorScheme(
+      brightness: Brightness.dark,
+      primary: onPrimary,
+      onPrimary: blackSeed,
+      primaryContainer: primarySeed,
+      onPrimaryContainer: whiteSeed,
+      secondary: onSecondary,
+      onSecondary: blackSeed,
+      secondaryContainer: secondarySeed,
+      onSecondaryContainer: whiteSeed,
+      tertiary: onTertiary,
+      onTertiary: blackSeed,
+      tertiaryContainer: tertiarySeed,
+      onTertiaryContainer: whiteSeed,
+      error: onError,
+      onError: blackSeed,
+      errorContainer: errorSeed,
+      onErrorContainer: whiteSeed,
+      background: blackSeed,
+      onBackground: whiteSeed,
+      surface: blackSeed,
+      onSurface: whiteSeed,
+      surfaceVariant: darkGrey,
+      onSurfaceVariant: whiteSeed,
+      outline: lightGrey,
+      outlineVariant: grey,
+      shadow: blackSeed,
+      scrim: blackSeed,
+      inverseSurface: lighterGrey,
+      onInverseSurface: blackSeed,
+      inversePrimary: primarySeed,
+      surfaceTint: onPrimary,
+    );
+  }
+}
+
+SimpleColorScheme schemeSrc = SimpleColorScheme(primarySeed: Color(0xFF092551), secondarySeed: Color(0xffffac02), tertiarySeed: Color(0xff00531f), whiteSeed: Color(0xffffffff), blackSeed: Color(0xff1a1a1a));
+
+ColorScheme customLightScheme = schemeSrc.lightScheme;
+
+ColorScheme customDarkScheme = schemeSrc.darkScheme;
+
+ColorScheme customLegacyLightScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF092551), //Pionix primaryBlue
-  onPrimary: Color(0xffffffff),
-  primaryContainer: Color(0xffd9e2ff),
-  onPrimaryContainer: Color(0xff000000),
+  onPrimary: Color(0xffffffff), //== Colors.white
+  primaryContainer: Color(0xffd9e2ff), //== inversePrimary
+  onPrimaryContainer: Color(0xff000000), //== Colors.black
   secondary: Color(0xffffac02), //Pionix primaryAmber
-  onSecondary: Color(0xffffffff),
-  secondaryContainer: Color(0xffffddb2),
-  onSecondaryContainer: Color(0xff000000),
-  tertiary: Color(0xff00531f),
-  onTertiary: Color(0xffffffff),
-  tertiaryContainer: Color(0xffc6ffc7),
-  onTertiaryContainer: Color(0xff000000),
-  error: Color(0xffba1a1a),
-  onError: Color(0xffffffff),
-  errorContainer: Color(0xffffedea),
-  onErrorContainer: Color(0xff000000),
-  background: Color(0xffffffff),
-  onBackground: Color(0xff000000),
-  surface: Color(0xffffffff),
-  onSurface: Color(0xff000000),
-  surfaceVariant: Color(0xfff1f0f7),
-  onSurfaceVariant: Color(0xff000000),
-  outline: Color(0xff5d5e64),
-  outlineVariant: Color(0xffaaabb1),
-  shadow: Color(0xff000000),
-  scrim: Color(0xff000000),
-  inverseSurface: Color(0xff303033),
-  onInverseSurface: Color(0xffffffff),
-  inversePrimary: Color(0xffd9e2ff),
-  surfaceTint: Color(0xFF092551), //Pionix primaryBlue
+  onSecondary: Color(0xffffffff), //== Colors.white
+  secondaryContainer: Color(0xffffddb2), //
+  onSecondaryContainer: Color(0xff000000), //== Colors.black
+  tertiary: Color(0xff00531f), //
+  onTertiary: Color(0xffffffff), //== Colors.white
+  tertiaryContainer: Color(0xffc6ffc7), //
+  onTertiaryContainer: Color(0xff000000), //== Colors.black
+  error: Color(0xffba1a1a), //
+  onError: Color(0xffffffff), //== Colors.white
+  errorContainer: Color(0xffffedea), //
+  onErrorContainer: Color(0xff000000), //== Colors.black
+  background: Color(0xffffffff), //== Colors.white
+  onBackground: Color(0xff000000), //== Colors.black
+  surface: Color(0xffffffff), //== Colors.white
+  onSurface: Color(0xff000000), //== Colors.black
+  surfaceVariant: Color(0xfff1f0f7), //
+  onSurfaceVariant: Color(0xff000000), //== Colors.black
+  outline: Color(0xff5d5e64), //
+  outlineVariant: Color(0xffaaabb1), //
+  shadow: Color(0xff000000), //== Colors.black
+  scrim: Color(0xff000000), //== Colors.black
+  inverseSurface: Color(0xff303033), //
+  onInverseSurface: Color(0xffffffff), //== Colors.white
+  inversePrimary: Color(0xffd9e2ff), //== primaryContainer
+  surfaceTint: Color(0xFF092551), //== primary
 );
 
-ColorScheme customDarkScheme = ColorScheme(
+ColorScheme customLegacyDarkScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xffd9e2ff),
   onPrimary: Color(0xff000000),
